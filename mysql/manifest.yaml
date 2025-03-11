@@ -10,10 +10,10 @@ metadata:
 spec:
    replicas: 1
    selector:
-   matchLabels:
-     project: expense
-     tier: mysql
-     app: mysql
+     matchLabels:
+      project: expense
+      tier: mysql
+      app: mysql
    template:
      metadata:
        labels:
