@@ -8,7 +8,7 @@ metadata:
     app: backend
     tier: backend
 spec:
-  replicas: 3
+  replicas: 1
   selector:
    matchLabels:
     poject: expense
@@ -29,7 +29,7 @@ kind: Service
 apiVersion: v1
 metadata:
   name: backend
-  name: expense
+  namespace: expense
 spec:
   selector:
      project: expense
