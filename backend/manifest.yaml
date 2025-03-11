@@ -10,10 +10,10 @@ metadata:
 spec:
   replicas: 1
   selector:
-   matchLabels:
-    poject: expense
-    app: backend
-    tier: backend
+    matchLabels:
+      project: expense
+      app: backend
+      tier: backend
   template:
     metadata:
       labels:
