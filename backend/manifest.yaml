@@ -22,7 +22,7 @@ spec:
         tier: backend
     spec: 
       containers:
-      - name: nodejs
+      - name: nginx
         image: kittukrish/backend:1.0.0
 ---
 kind: Service
