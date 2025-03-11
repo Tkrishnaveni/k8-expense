@@ -36,7 +36,7 @@ spec:
      app: mysql
      tier: mysql
   ports:
-  - protocol: tcp
+  - protocol: TCP
     port: 3306  #service port
     targetPort: 3306 #mysql
 
