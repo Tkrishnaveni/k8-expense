@@ -115,11 +115,26 @@ spec:
           readOnly: true
 
 ---
+kind: Service
+apiVersion: v1
+metadata:
+  name: frontend
+  namespace: expense
+spec:
+  type: LoadBalancer
+  selector: # labels are used as selectors
+    app: frontend
+    tier: web
+    project: expense
+  ports:
+  - protocol: TCP
+    port: 80 # service port
+    targetPort: 8080
+---    
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: frontend
-  namespace: expense
   annotations:
     alb.ingress.kubernetes.io/scheme: internet-facing
     alb.ingress.kubernetes.io/target-type: ip
@@ -127,11 +142,6 @@ metadata:
     alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-east-1:463470982924:certificate/d6e6d506-3f9c-4739-88b1-7ec5eacfcebb
     alb.ingress.kubernetes.io/group.name: joindevops
 spec:
-  selector:
-    matchLabels:
-      app: frontend
-      tier: web
-      project: expense
   ingressClassName: alb
   rules:
   - host: "frontend.kittudevops.shop"
@@ -141,26 +151,6 @@ spec:
         path: "/"
         backend:
           service:
-            name: app1
+            name: frontend
             port:
-              number: 80
----
-apiVersion: autoscaling/v2
-kind: HorizontalPodAutoscaler
-metadata:
-  name: frontend
-  namespace: expense
-spec:
-  scaleTargetRef:
-    apiVersion: apps/v1
-    kind: Deployment
-    name: frontend
-  minReplicas: 1
-  maxReplicas: 10
-  metrics:
-  - type: Resource
-    resource:
-      name: cpu
-      target:
-        type: Utilization
-        averageUtilization: 5
+              number: 8080
